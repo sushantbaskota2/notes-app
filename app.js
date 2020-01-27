@@ -6,11 +6,20 @@ const yargs = require('yargs')
 const command = process.argv
 const yargsCommand = yargs.argv
 
+
+
 yargs.command({
-    command: 'remove',
-    describe: 'Remove the note',
-    handler: function () {
-        console.log('Removing note!')
+    command:'remove',
+    describe:'Removes the note from title',
+    builder:{
+        title:{
+            describe:'Note Title',
+            demandOption:true,
+            type:'string'
+        }
+    },
+    handler: function (argv) {
+        notes.removeNotes(argv.title)
     }
 })
 
@@ -30,8 +39,7 @@ yargs.command({
         }
     },
     handler: function (argv){
-        console.log(chalk.red('Title: ', argv.title))
-        console.log(chalk.blue('Body: '), chalk.green( argv.body))
+        notes.addNote(argv.title, argv.body)
     }
 })
 
